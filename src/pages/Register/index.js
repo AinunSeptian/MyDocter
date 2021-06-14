@@ -1,14 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Button, Gap, Header, Input} from '../../components';
 import {colors, useForm} from '../../utils';
 
 const Register = ({navigation}) => {
-  const [fullName, setFullName] = useState('');
-  const [profession, setProfession] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
   const [form, setForm] = useForm({
     fullName: '',
     profession: '',
