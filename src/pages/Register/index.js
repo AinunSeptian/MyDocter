@@ -3,6 +3,7 @@ import {ScrollView, StyleSheet, View} from 'react-native';
 import {Button, Gap, Header, Input, Loading} from '../../components';
 import {Fire} from '../../config';
 import {colors, useForm} from '../../utils';
+import {showMessage, hideMessage} from 'react-native-flash-message';
 
 const Register = ({navigation}) => {
   const [form, setForm] = useForm({
@@ -16,17 +17,25 @@ const Register = ({navigation}) => {
 
   const onCuntinue = () => {
     console.log(form);
+
     setLoading(true);
     Fire.auth()
       .createUserWithEmailAndPassword(form.email, form.password)
       .then(success => {
         setLoading(false);
+        setForm('reset');
         console.log('register sukses: ', success);
       })
       .catch(error => {
         const errorMessage = error.message;
         setLoading(false);
-        console.log('error register: ', errorMessage);
+        showMessage({
+          message: errorMessage,
+          type: 'default',
+          backgroundColor: colors.error,
+          color: colors.white,
+        });
+        console.log('error register: ', error);
       });
     // navigation.navigate('UploadPhoto')
   };
