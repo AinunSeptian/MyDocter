@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Button, Gap, Header, Input, Loading} from '../../components';
 import {Fire} from '../../config';
-import {colors, useForm} from '../../utils';
+import {colors, getData, storeData, useForm} from '../../utils';
 import {showMessage, hideMessage} from 'react-native-flash-message';
 
 const Register = ({navigation}) => {
@@ -32,6 +32,10 @@ const Register = ({navigation}) => {
         Fire.database()
           .ref('users/' + success.user.uid + '/')
           .set(data);
+
+        storeData('user', data);
+        navigation.navigate('UploadPhoto');
+
         console.log('register sukses: ', success);
       })
       .catch(error => {
@@ -39,18 +43,6 @@ const Register = ({navigation}) => {
         setLoading(false);
         showMessage({
           message: errorMessage,
-          // errorMessage === 'The email address is badly formatted.'
-          //   ? 'Format email yang anda masukan salah.'
-          //   : null,
-
-          // errorMessage === 'A network error (such as timeout, interrupted connection or unreachable host) has occurred.'
-          //   ? 'Koneksi internet anda bermasalah.'
-          //   : null,
-
-          // errorMessage === The email address is already in use by another account."
-          //   ? 'Alamat email ini sudah pernah digunakan.'
-          //   : null,
-
           type: 'default',
           backgroundColor: colors.error,
           color: colors.white,
@@ -58,7 +50,6 @@ const Register = ({navigation}) => {
         });
         console.log('error register: ', error);
       });
-    // navigation.navigate('UploadPhoto')
   };
   return (
     <>
