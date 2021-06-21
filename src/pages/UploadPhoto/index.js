@@ -5,12 +5,15 @@ import {Button, Gap, Header, Link} from '../../components';
 import {colors, fonts} from '../../utils';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {showMessage} from 'react-native-flash-message';
+import {Fire} from '../../config';
 
-const UploadPhoto = ({navigation}) => {
+const UploadPhoto = ({navigation, route}) => {
+  const {fullName, profession, uid} = route.params;
+  const [photoForDB, setPhotoForDB] = useState('');
   const [hasPhoto, setHasPhoto] = useState(false);
   const [photo, setPhoto] = useState(ILNullPhoto);
   const getImage = () => {
-    launchImageLibrary({}, response => {
+    launchImageLibrary({includeBase64: true}, response => {
       console.log('response: ', response);
       if (response.didCancel || response.error) {
         showMessage({
@@ -21,11 +24,24 @@ const UploadPhoto = ({navigation}) => {
           duration: 3000,
         });
       } else {
+        console.log('response getImage: ', response);
         const source = {uri: response.assets[0].uri};
+
+        setPhotoForDB(
+          `data:${response.assets[0].type};base64, ${response.assets[0].base64}`,
+        );
         setPhoto(source);
         setHasPhoto(true);
       }
     });
+  };
+
+  const uploadAndContinue = () => {
+    Fire.database()
+      .ref('users/' + uid + '/')
+      .update({photo: photoForDB});
+
+    navigation.replace('MainApp');
   };
   return (
     <View style={styles.page}>
@@ -37,14 +53,14 @@ const UploadPhoto = ({navigation}) => {
             {hasPhoto && <IconRemovePhoto style={styles.addPhoto} />}
             {!hasPhoto && <IconAddPhoto style={styles.addPhoto} />}
           </TouchableOpacity>
-          <Text style={styles.name}>Shayna Melinda</Text>
-          <Text style={styles.profession}>Product Designer</Text>
+          <Text style={styles.name}>{fullName}</Text>
+          <Text style={styles.profession}>{profession}</Text>
         </View>
         <View>
           <Button
             disable={!hasPhoto}
             title="Upload and Continue"
-            onPress={() => navigation.replace('MainApp')}
+            onPress={uploadAndContinue}
           />
           <Gap height={30} />
           <Link

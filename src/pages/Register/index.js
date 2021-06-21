@@ -17,28 +17,29 @@ const Register = ({navigation}) => {
 
   const onCuntinue = () => {
     console.log(form);
-
     setLoading(true);
-    Fire.auth()
+    Fire.auth() // =====> set up to database (firebase)
       .createUserWithEmailAndPassword(form.email, form.password)
       .then(success => {
+        // =====> if success
         setLoading(false);
         setForm('reset');
         const data = {
           fullName: form.fullName,
           profession: form.profession,
           email: form.email,
+          uid: success.user.uid,
         };
         Fire.database()
           .ref('users/' + success.user.uid + '/')
           .set(data);
 
         storeData('user', data);
-        navigation.navigate('UploadPhoto');
-
+        navigation.navigate('UploadPhoto', data);
         console.log('register sukses: ', success);
       })
       .catch(error => {
+        // =====> if error
         const errorMessage = error.message;
         setLoading(false);
         showMessage({
