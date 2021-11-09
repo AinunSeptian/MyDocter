@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {
   DoctorCategory,
@@ -7,7 +7,7 @@ import {
   NewsItem,
   RatedDoctor,
 } from '../../components';
-import {colors, fonts, getData} from '../../utils';
+import {colors, fonts} from '../../utils';
 import {
   DummyDoctor1,
   DummyDoctor2,
@@ -16,11 +16,6 @@ import {
 } from '../../assets';
 
 const Doctor = ({navigation}) => {
-  useEffect(() => {
-    getData('user').then(res => {
-      console.log('data user : ', res);
-    });
-  }, []);
   return (
     <View style={styles.page}>
       <View style={styles.content}>
