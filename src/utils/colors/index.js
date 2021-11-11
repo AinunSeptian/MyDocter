@@ -1,6 +1,6 @@
 const mainColors = {
   green1: '#0bcad4',
-  green2: '#edfcfd',
+  green2: '#e6ffff',
   dark1: '#112340',
   dark2: '#495A75',
   dark3: '#8092af',

@@ -5,14 +5,17 @@ import {colors, fonts} from '../../../utils';
 
 const DoctorCategory = ({category, onPress}) => {
   const Icon = () => {
-    if (category === 'dokter umum') {
+    if (category === 'Dokter umum') {
       return <ILCatUmum style={styles.illustration} />;
     }
-    if (category === 'psikiater') {
+    if (category === 'Psikiater') {
       return <ILCatPsikiater style={styles.illustration} />;
     }
-    if (category === 'dokter obat') {
+    if (category === 'Dokter obat') {
       return <ILCatObat style={styles.illustration} />;
+    }
+    if (category === 'Dokter jiwa') {
+      return <ILCatPsikiater style={styles.illustration} />;
     }
     return <ILCatUmum style={styles.illustration} />;
   };
@@ -37,7 +40,9 @@ const styles = StyleSheet.create({
     width: 100,
     height: 130,
   },
-  illustration: {marginBottom: 28},
+  illustration: {
+    marginBottom: 28,
+  },
   label: {
     fontSize: 12,
     fontFamily: fonts.primary[300],
