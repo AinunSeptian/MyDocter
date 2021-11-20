@@ -3,23 +3,21 @@ import {StyleSheet, Text, View, Image} from 'react-native';
 import {DummyDoctor9} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-const IsMe = () => {
+const Other = ({text, date, photo}) => {
   return (
     <View style={styles.container}>
-      <Image source={DummyDoctor9} style={styles.avatar} />
+      <Image source={photo} style={styles.avatar} />
       <View>
         <View style={styles.chatContent}>
-          <Text style={styles.text}>
-            Ibu dokter, apakah memakan jeruk tiap hari itu buruk?
-          </Text>
+          <Text style={styles.text}>{text}</Text>
         </View>
-        <Text style={styles.date}>4.20 AM</Text>
+        <Text style={styles.date}>{date}</Text>
       </View>
     </View>
   );
 };
 
-export default IsMe;
+export default Other;
 
 const styles = StyleSheet.create({
   container: {

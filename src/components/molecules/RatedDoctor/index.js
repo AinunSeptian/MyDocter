@@ -5,7 +5,10 @@ import {colors, fonts} from '../../../utils';
 
 const RatedDoctor = ({name, desc, avatar, onPress}) => {
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <TouchableOpacity
+      activeOpacity={0.5}
+      style={styles.container}
+      onPress={onPress}>
       <Image source={avatar} style={styles.avatar} />
       <View style={styles.profile}>
         <Text style={styles.name}>{name}</Text>

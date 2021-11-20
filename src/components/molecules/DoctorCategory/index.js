@@ -5,22 +5,25 @@ import {colors, fonts} from '../../../utils';
 
 const DoctorCategory = ({category, onPress}) => {
   const Icon = () => {
-    if (category === 'Dokter umum') {
+    if (category === 'dokter umum') {
       return <ILCatUmum style={styles.illustration} />;
     }
-    if (category === 'Psikiater') {
+    if (category === 'psikiater') {
       return <ILCatPsikiater style={styles.illustration} />;
     }
-    if (category === 'Dokter obat') {
+    if (category === 'dokter obat') {
       return <ILCatObat style={styles.illustration} />;
     }
-    if (category === 'Dokter jiwa') {
+    if (category === 'dokter bedah') {
       return <ILCatPsikiater style={styles.illustration} />;
     }
     return <ILCatUmum style={styles.illustration} />;
   };
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <TouchableOpacity
+      activeOpacity={0.5}
+      style={styles.container}
+      onPress={onPress}>
       <Icon />
       <Text style={styles.label}>Saya butuh</Text>
       <Text style={styles.category}>{category}</Text>

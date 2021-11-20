@@ -27,9 +27,10 @@ const Doctor = ({navigation}) => {
       .ref('category_doctor/')
       .once('value')
       .then(res => {
-        console.log('data : ', res.val());
         if (res.val()) {
-          setCategoryDoctor(res.val());
+          const data = res.val();
+          const filterData = data.filter(el => el !== null);
+          setCategoryDoctor(filterData);
         }
       })
       .catch(err => {
@@ -42,9 +43,10 @@ const Doctor = ({navigation}) => {
       .ref('news/')
       .once('value')
       .then(res => {
-        console.log('data : ', res.val());
         if (res.val()) {
-          setNews(res.val());
+          const data = res.val();
+          const filterData = data.filter(el => el !== null);
+          setNews(filterData);
         }
       })
       .catch(err => {
@@ -96,7 +98,7 @@ const Doctor = ({navigation}) => {
                     <DoctorCategory
                       key={item.id}
                       category={item.category}
-                      onPress={() => navigation.navigate('ChooseDoctor')}
+                      onPress={() => navigation.navigate('ChooseDoctor', item)}
                     />
                   );
                 })}
@@ -113,7 +115,7 @@ const Doctor = ({navigation}) => {
                   name={doctor.data.fullName}
                   desc={doctor.data.profession}
                   avatar={{uri: doctor.data.photo}}
-                  onPress={() => navigation.navigate('DoctorProfile')}
+                  onPress={() => navigation.navigate('DoctorProfile', doctor)}
                 />
               );
             })}
